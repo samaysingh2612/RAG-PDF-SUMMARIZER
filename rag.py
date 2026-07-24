@@ -26,16 +26,29 @@ import os
 import streamlit as st
 
 # Check environment variables first, then safely check Streamlit secrets
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+import os
+import streamlit as st
+from pinecone import Pinecone
 
-if not GEMINI_API_KEY and "GEMINI_API_KEY" in st.secrets:
-    GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+# Helper function to grab secrets safely from env OR Streamlit secrets
+def get_secret(key_name):
+    return os.getenv(key_name) or st.secrets.get(key_name)
 
-# Handle the case where the key is completely missing
+# 1. Fetch Keys safely
+GEMINI_API_KEY = get_secret("GEMINI_API_KEY")
+PINECONE_API_KEY = get_secret("PINECONE_API_KEY")
+
+# 2. Check missing keys before initializing Pinecone
+if not PINECONE_API_KEY:
+    st.error("⚠️ PINECONE_API_KEY is missing! Please set it in Streamlit Secrets or environment variables.")
+    st.stop()
+
 if not GEMINI_API_KEY:
     st.error("⚠️ GEMINI_API_KEY is missing! Please set it in Streamlit Secrets or environment variables.")
     st.stop()
-PINECONE_API_KEY = os.getenv("PINECONE_API_KEY") 
+
+# 3. Initialize Pinecone safely
+pc = Pinecone(api_key=PINECONE_API_KEY)
 embeddings = GoogleGenerativeAIEmbeddings(
     model="models/gemini-embedding-001",
     google_api_key=os.getenv("GEMINI_API_KEY"),
