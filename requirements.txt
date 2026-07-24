@@ -3,7 +3,7 @@ python-dotenv
 langchain
 langchain-community
 langchain-google-genai
-langchain-pinecone
+langchain-pinecone >= 0.2.0
 pinecone
 pypdf
 pinecone-client
