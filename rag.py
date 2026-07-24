@@ -9,7 +9,7 @@ from langchain_google_genai import (
     GoogleGenerativeAIEmbeddings,
     ChatGoogleGenerativeAI,
 )
-from langchain_pinecone import PineconeVectorStore
+from langchain_pinecone import Pinecone as PineconeVectorStore
 from pinecone import Pinecone
 
 # -----------------------------
