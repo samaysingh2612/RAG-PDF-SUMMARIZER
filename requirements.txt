@@ -6,3 +6,4 @@ langchain-google-genai
 langchain-pinecone
 pinecone
 pypdf
+pinecone-client
