@@ -41,11 +41,11 @@ PINECONE_API_KEY = get_secret("PINECONE_API_KEY")
 # 2. Check missing keys before initializing Pinecone
 if not PINECONE_API_KEY:
     st.error("⚠️ PINECONE_API_KEY is missing! Please set it in Streamlit Secrets or environment variables.")
-    st.stop()
+    
 
 if not GEMINI_API_KEY:
     st.error("⚠️ GEMINI_API_KEY is missing! Please set it in Streamlit Secrets or environment variables.")
-    st.stop()
+    
 
 # 3. Initialize Pinecone safely
 pc = Pinecone(api_key=PINECONE_API_KEY)
